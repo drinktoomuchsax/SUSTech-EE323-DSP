@@ -1,0 +1,13 @@
+% hello lab3
+%% 3.1 BACKGROUND EXERCISES
+%plot the perti
+syms t
+n=-10:10;
+subplot(211)
+fplot(rectangularPulse(t+(n*4+1)/2),[-5 5])
+ylim([-0.1 1.3])
+title("s( t ) = rect(t−1/2)")
+subplot(212)
+fplot((rectangularPulse(2*(t+n))-1/2),[-5 5])
+ylim([-0.7 1])
+title("s( t ) = rect(2t)−1/2")

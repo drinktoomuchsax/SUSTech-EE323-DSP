@@ -1,0 +1,91 @@
+%% 5.2.1 Shifting the Frequency Range
+N = 20;
+x = hamming(N);
+[X, k] = DFTsum(x);
+figure;
+plot(k, abs(X));
+xlabel('Index k');
+ylabel('|X_{20}[k]|');
+title('Magnitude of 20-point DFT of Hamming window');
+grid on;
+%
+N = 20;
+x = hamming(N);
+
+[X_DTFT, w_DTFT] = DTFTsamples(x);
+
+figure;
+plot(w_DTFT, abs(X_DTFT));
+xlabel('Frequency (rad/sample)');
+ylabel('|X(\omega)|');
+title('Magnitude of DTFT Samples of Hamming Window');
+grid on;
+
+%% 5.2.2 Zero Padding
+clear;
+% Generate the finite-duration signal x[n] for N1 = 50
+n1 = 0:49;
+x_n1 = sin(0.1 * pi * n1);
+
+% Compute DTFT samples for N1 = 50
+[X_DTFT_50, w_DTFT_50] = DTFTsamples(x_n1);
+
+% Generate the finite-duration signal x[n] for N2 = 200
+n2 = 0:199;
+n2(n2>=49) = 0; % explain that sin(0) = 0
+x_n2 = sin(0.1 * pi * n2);
+
+% Compute DTFT samples for N2 = 200
+[X_DTFT_200, w_DTFT_200] = DTFTsamples(x_n2);
+
+% Plot the magnitude of DTFT samples versus frequency for N1 = 50
+figure;
+subplot(2, 1, 1);
+plot(w_DTFT_50, abs(X_DTFT_50), 'r');
+xlabel('Frequency (rad/sample)');
+ylabel('|X(\omega)|');
+title('Magnitude of DTFT Samples (N = 50)');
+grid on;
+
+% Plot the magnitude of DTFT samples versus frequency for N2 = 200
+subplot(2, 1, 2);
+plot(w_DTFT_200, abs(X_DTFT_200), 'b');
+xlabel('Frequency (rad/sample)');
+ylabel('|X(\omega)|');
+title('Magnitude of DTFT Samples (N = 200)');
+grid on;
+
+%% test
+clear;
+j=sqrt(-1);
+n=0:0.01:4;
+x=2*exp(-2*j*pi*n);
+x
+plot(n,x)
+
+%% FUNCTIONs
+
+function [X, w] = DTFTsamples(x)
+    N = length(x);
+    [X_DFT, k] = DFTsum(x);
+    w = (2 * pi / N) * k;
+    w(w >= pi) = w(w >= pi) - 2 * pi;
+    X = fftshift(X_DFT);
+    w = fftshift(w);
+end
+
+function [X, w] = DTFTsamples_2(x, N)
+    % Compute DFT using DFTsum function
+    [X_DFT, k] = DFTsum(x);
+
+    % Generate the vector of frequencies in radians per sample
+    w = (2 * pi / N) * k;
+
+    % Adjust frequencies to lie in the range from -pi to pi
+    w(w >= pi) = w(w >= pi) - 2 * pi;
+
+    % Reorder the vectors using fftshift
+    X = fftshift(X_DFT);
+    w = fftshift(w);
+end
+
