@@ -12,3 +12,5 @@
 | tutorial8    | 100/100 |
 | tutorial11   | 100/100 |
 | tutorial12   | ungiven |
+
+余老师的简直是prompt master，因为其lab manual放到gpt上生成出来的代码基本上可以完美运行。
