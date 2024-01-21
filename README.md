@@ -14,3 +14,6 @@
 | tutorial12   | ungiven |
 
 余老师的简直是prompt master，因为其lab manual放到gpt上生成出来的代码基本上可以完美运行。
+
+### 关于报告
+所有报告都是基于IEEE conference template修改，“/report”文件夹下单“.zip”文件是overleaf导出的latex文件，可以直接导入overleaf编辑
